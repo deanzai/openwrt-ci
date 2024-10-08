@@ -103,11 +103,12 @@ jobs:
         mixkey: ${{ env.SOURCE_REPO }}-${{ env.REPO_BRANCH }}-${{ env.DEVICE_TARGET }}-${{ env.DEVICE_SUBTARGET }}
         prefix: ${{ env.OPENWRT_PATH }}
     
-    - name: Install Feeds(安装feeds)
+    - name: Install Feeds(安装feeds和添加额外包) 
       run: |
         cd $OPENWRT_PATH
         ./scripts/feeds update -a
         ./scripts/feeds install -a
+        git clone https://github.com/sirpdboy/luci-app-lucky.git --depth=1 package/luci-app-lucky
   
     - name: Load Custom Configuration(加载自定义配置)
       run: |
